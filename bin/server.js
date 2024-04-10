@@ -1,13 +1,14 @@
 // @ts-check
 import fastify from 'fastify';
+import response from '../fixtures/response.js'
 
 const server = () => {
   const app = fastify();
 
-  app.post('/users', (_req, reply) => {
+  app.get('/goods', (_req, reply) => {
     reply
       .header('Content-Type', 'application/json; charset=utf-8')
-      .send(JSON.stringify({ message: 'user has been created sucessfully' }));
+      .send(JSON.stringify(response));
   });
 
   return app;

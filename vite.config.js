@@ -9,7 +9,7 @@ export default defineConfig({
       interval: 300,
     },
     proxy: {
-      '/users': 'http://localhost:3000',
+      '/goods': 'http://localhost:3000',
     },
   },
   cacheDir: '/var/tmp/.vite',

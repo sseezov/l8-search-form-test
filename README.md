@@ -21,20 +21,22 @@ make run # запускается сервер и сборка
 ### Форма
 
 ```html
-<form id="searchForm">
-    <div class="form-group">
-        <label for="search">search</label>
-        <input type="text" class="form-control" id="search" placeholder="введите товар" required>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary">
-</form>
-<div class="filter-tabs"></div>
-<div class="goods"></div>
+<div class="col-auto">
+    <i class="fas fa-search h4 text-body mr-2"></i>
+</div>
+<div class="col">
+<input class="form-control form-control-lg form-control-borderless" type="search"
+    placeholder="Search topics or keywords">
+</div>
+<div class="col-auto">
+    <button class="btn btn-lg btn-success" type="submit">Search</button>
+</div>
 ```
 
 ## Задача 2
 
 Добавьте в приложение логику, которая отправляет запрос на сервер и, в случае успешной отправки, выводит товары в следующем виде:
+
 ```html
 <div class="goods-card">
     <h1 class="card-header">Название товара</h1>
@@ -48,6 +50,7 @@ make run # запускается сервер и сборка
 Добавьте в функцию рендер табов, которые должны быть добавлены в родительский элемент с классом "filter-tabs". При нажатии на соответствующий таб, содержимое контейнера с результатами должно меняться соответствующим образом.
 
 Всего необходимо отрендерить 4 таба:
+
 ```html
 пример таба
 все товары (выбран по умолчанию), телефоны, планшеты, компьютеры
