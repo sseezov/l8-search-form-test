@@ -28,6 +28,7 @@ export default () => {
       <div class="card-body">
           <h5 class="card-title">${card.title}</h5>
           <p class="card-text">${card.description}</p>
+          <h3 class="card-text text-success">${card.price}</h3>
       </div>
     </div>
   `
