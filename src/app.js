@@ -1,6 +1,4 @@
 /* eslint-disable */
-// import _ from 'lodash';
-import onChange from 'on-change';
 import axios from 'axios';
 
 export default () => {
@@ -17,13 +15,13 @@ export default () => {
     </div>`;
 
   const resultsCountHTML = `<div class="goods-quantity"></div>`
-
   const goodsQuantityContainer = document.querySelector('.results-container')
   const searchContainer = document.querySelector('.search-form-container');
   const searchResults = document.querySelector('.search-results')
   const form = document.querySelector('form')
   searchContainer.innerHTML = formHTML;
-
+  const input = document.querySelector('input');
+  
   const setCard = (card) => `
     <div class="card">
       <img src=${card.images[0]} class="card-img-top" alt=${card.title}>
@@ -35,14 +33,16 @@ export default () => {
   `
 
   form.addEventListener('submit', (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    const value = input.value;
     axios.get('/goods')
       .then((response) => {
         const { products } = response.data;
-        const cards = products.map((product) => setCard(product));
+        const query = products.filter(product => new RegExp(value, 'i').test(product.title));
+        const cards = query.map((product) => setCard(product));
         searchResults.innerHTML = cards.join('\n');
         goodsQuantityContainer.innerHTML = resultsCountHTML;
-        goodsQuantityContainer.textContent = `Goods total: ${response.data.products.length}`
+        goodsQuantityContainer.textContent = `Goods total: ${cards.length}`
       })
       .catch((error) => {
         console.log(error);
