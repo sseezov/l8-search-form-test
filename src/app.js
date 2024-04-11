@@ -16,12 +16,10 @@ export default () => {
       <button class="btn btn-lg btn-success" type="submit">Search</button>
     </div>`;
 
-  const resultsCountHTML = `<div class="goods-quantity">
-    </div>`
+  const resultsCountHTML = `<div class="goods-quantity"></div>`
 
   const goodsQuantityContainer = document.querySelector('.results-container')
   const searchContainer = document.querySelector('.search-form-container');
-  const submit = document.querySelector('button[type="submit"]');
   const form = document.querySelector('form')
   searchContainer.innerHTML = formHTML;
 
