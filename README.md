@@ -45,11 +45,11 @@ make run # запускается сервер и сборка
 
 ## Задача 3
 
-Добавьте в функцию поиск по введенному запросу по данным с бекенда. Поиск осуществляется по полям title, description, brand и catogory.
+Добавьте в функцию поиск по введенному запросу по данным с бекенда. Поиск осуществляется по полям title, description, brand и category.
 При клике на кнопку `submit` все товары с совпадениями должны быть выведены в контейнере `.search-results` в следующем виде для каждого товара:
 
 ```html
- <div class="card">
+<div class="card">
     <img src="..." class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title">{{title}}</h5>

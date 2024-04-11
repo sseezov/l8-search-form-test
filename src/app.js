@@ -20,14 +20,27 @@ export default () => {
 
   const goodsQuantityContainer = document.querySelector('.results-container')
   const searchContainer = document.querySelector('.search-form-container');
+  const searchResults = document.querySelector('.search-results')
   const form = document.querySelector('form')
   searchContainer.innerHTML = formHTML;
+
+  const setCard = (card) => `
+    <div class="card">
+      <img src=${card.images[0]} class="card-img-top" alt=${card.title}>
+      <div class="card-body">
+          <h5 class="card-title">${card.title}</h5>
+          <p class="card-text">${card.description}</p>
+      </div>
+    </div>
+  `
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
     axios.get('/goods')
       .then((response) => {
-        console.log(response.data);
+        const { products } = response.data;
+        const cards = products.map((product) => setCard(product));
+        searchResults.innerHTML = cards.join('\n');
         goodsQuantityContainer.innerHTML = resultsCountHTML;
         goodsQuantityContainer.textContent = `Goods total: ${response.data.products.length}`
       })
