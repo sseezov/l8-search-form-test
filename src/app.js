@@ -21,14 +21,14 @@ export default () => {
   const form = document.querySelector('form')
   searchContainer.innerHTML = formHTML;
   const input = document.querySelector('input');
-  
-  const setCard = (card) => `
+
+  const setCard = (card, cheapestPrice) =>  `
     <div class="card">
       <img src=${card.images[0]} class="card-img-top" alt=${card.title}>
       <div class="card-body">
           <h5 class="card-title">${card.title}</h5>
           <p class="card-text">${card.description}</p>
-          <h3 class="card-text text-success">${card.price}</h3>
+          <h3 class="card-text ${Number(card.price) === cheapestPrice ? 'text-success' : ''}">${card.price}</h3>
       </div>
     </div>
   `
@@ -40,7 +40,10 @@ export default () => {
       .then((response) => {
         const { products } = response.data;
         const query = products.filter(product => new RegExp(value, 'i').test(product.title));
-        const cards = query.map((product) => setCard(product));
+        const bestPrice = query
+          .map((product) => Number(product.price))
+          .reduce((acc, elem) => elem < acc ? elem : acc)
+        const cards = query.map((product) => setCard(product, bestPrice));
         searchResults.innerHTML = cards.join('\n');
         goodsQuantityContainer.innerHTML = resultsCountHTML;
         goodsQuantityContainer.textContent = `Goods total: ${cards.length}`
