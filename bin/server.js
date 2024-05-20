@@ -1,6 +1,6 @@
 // @ts-check
 import fastify from 'fastify';
-import response from '../fixtures/response.js';
+import response from '../__tests__/__fixtures__/response.js';
 
 const server = () => {
   const app = fastify();
