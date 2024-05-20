@@ -22,7 +22,7 @@ export default () => {
   searchContainer.innerHTML = formHTML;
   const input = document.querySelector('input');
 
-  const setCard = (card, cheapestPrice) =>  `
+  const setCard = (card, cheapestPrice) => `
     <div class="card">
       <img src=${card.images[0]} class="card-img-top" alt=${card.title}>
       <div class="card-body">
@@ -42,7 +42,7 @@ export default () => {
         const query = products.filter(product => new RegExp(value, 'i').test(product.title));
         const bestPrice = query
           .map((product) => Number(product.price))
-          .reduce((acc, elem) => elem < acc ? elem : acc)
+          .reduce((acc, elem) => (elem < acc ? elem : acc), Infinity)
         const cards = query.map((product) => setCard(product, bestPrice));
         searchResults.innerHTML = cards.join('\n');
         goodsQuantityContainer.innerHTML = resultsCountHTML;
