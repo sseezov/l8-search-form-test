@@ -19,7 +19,7 @@ beforeEach(() => {
     .get('/goods')
     .reply(200, response);
 
-  const pathToFixture = path.join('__tests__', '__fixtures__', 'index.html');
+  const pathToFixture = path.join('__fixtures__', 'index.html');
   const initHtml = fs.readFileSync(pathToFixture).toString();
   document.body.innerHTML = initHtml;
   run();
@@ -41,25 +41,36 @@ test('step1', async () => {
 });
 
 test('step2', async () => {
-  await userEvent.type(elements.searchInput, 'iphone');
+  await userEvent.type(elements.searchInput, 'Iphone');
   await userEvent.click(elements.submit);
 
   await waitFor(() => {
     const div = document.querySelector('.results-container');
     expect(div).toHaveTextContent('Goods total: 2');
   });
+
+  await userEvent.clear(elements.searchInput);
+  await userEvent.type(elements.searchInput, '2');
+  await userEvent.click(elements.submit);
+
+  await waitFor(() => {
+    const div = document.querySelector('.results-container');
+    expect(div).toHaveTextContent('Goods total: 0');
+  });
 });
 
 test('step3', async () => {
+  await userEvent.clear(elements.searchInput);
   await userEvent.type(elements.searchInput, 'iphone');
   await userEvent.click(elements.submit);
 
   await waitFor(() => {
     const displayedCards = document.querySelectorAll('.search-results .card');
-    expect(displayedCards.length).toBeGreaterThan(0);
+    expect(displayedCards.length).toBe(2);
 
     displayedCards.forEach(result => {
       expect(result.querySelector('.card-img-top')).not.toBeNull();
+      expect(result.querySelector('img').src).not.toBeNull();
       expect(result.querySelector('.card-body')).not.toBeNull();
       expect(result.querySelector('.card-title')).not.toBeNull();
       expect(result.querySelector('p.card-text')).not.toBeNull();
@@ -70,11 +81,17 @@ test('step3', async () => {
 });
 
 test('step4', async () => {
-  await userEvent.type(elements.searchInput, 'iphone');
+  await userEvent.clear(elements.searchInput);
+  await userEvent.type(elements.searchInput, 'samsung');
   await userEvent.click(elements.submit);
 
   await waitFor(() => {
     const text = document.querySelector('.text-success');
     expect(text).not.toBeNull();
+  });
+
+  await waitFor(() => {
+    const text = document.querySelector('.text-success');
+    expect(text.textContent).toBe('1249');
   });
 });
